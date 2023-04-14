@@ -3,6 +3,37 @@
 <head>
 <meta charset="utf-8" />
 <title>ASL-Lotissement du Château-73</title>
+<script src="https://apis.google.com/js/api.js"></script>
+<script type="js">
+    // Chargez la bibliothèque Google Sheets API
+    gapi.load('client', start);
+    
+    function start() {
+      // Initialisez les paramètres de l'API
+      gapi.client.init({
+        apiKey: 'AIzaSyAM9UqI0q87Yl5kZi4SEXmc9DmlBw1CJkA',
+        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+      }).then(function() {
+        // Chargez les données de votre tableur Google Sheets
+        gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1bhgkoSCdkRIjgsrR3iYzCC_zZnSUoxjLXnDz0CskgIQ',
+          range: 'Sheet1!A1:R75',
+        }).then(function(response) {
+          var values = response.result.values;
+          // Utilisez les données récupérées pour afficher du contenu sur votre site
+          var ul = document.createElement('ul');
+          for (var i = 0; i < values.length; i++) {
+            var li = document.createElement('li');
+            li.textContent = values[i][0] + ' : ' + values[i][1];
+            ul.appendChild(li);
+          }
+          document.body.appendChild(ul);
+        });
+      });
+    }
+    
+     
+</script>
 </head>
 <body>
 <h2>Accueil</h2>
